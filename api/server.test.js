@@ -37,10 +37,16 @@ describe('[DELETE] /spells/:id', () => {
     let spells = await db('spells');
     expect(spells[0]).toBeTruthy;
     expect(spells[1]).toBeTruthy;
-    const res = await request(server).delete('/spells/2');
-    expect(res.body).toMatchObject({ id: 2, name: 'magic missile' });
+    await request(server).delete('/spells/2');
     spells = await db('spells');
     expect(spells[0]).toBeTruthy;
     expect(spells[1]).toBeFalsy;
   });
+  it('responds with the deleted spell', async () => {
+    let spells = await db('spells');
+    expect(spells[0]).toBeTruthy;
+    expect(spells[1]).toBeTruthy;
+    const res = await request(server).delete('/spells/2');
+    expect(res.body).toMatchObject({ id: 2, name: 'magic missile' });
+  })
 })
