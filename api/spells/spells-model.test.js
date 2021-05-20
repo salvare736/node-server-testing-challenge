@@ -47,16 +47,10 @@ describe('Spells', () => {
       const spellList = await db('spells');
       expect(spellList).toHaveLength(1);
       expect(spellList[0]).toMatchObject({ name: "cone of cold" });
-    })
+    });
     it('resolves to the inserted spell', async () => {
       const spell = await Spells.insert({ name: "cone of cold" });
       expect(spell).toMatchObject({ id: 1, name: "cone of cold" })
-    })
-  })
-
-  describe('remove()', () => {
-    it('removes spell from db', async () => {
-      
-    })
-  })
+    });
+  });
 });

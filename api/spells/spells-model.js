@@ -27,6 +27,6 @@ async function update(id, changes) {
 
 async function remove(id) {
   const spell = await db('spells').where('id', id).first();
-  db('spells').where(id).del();
+  db('spells').where('id', id).del();
   return spell;
 }

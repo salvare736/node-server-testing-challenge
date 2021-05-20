@@ -41,6 +41,10 @@ describe('[DELETE] /spells/:id', () => {
     spells = await db('spells');
     expect(spells[0]).toBeTruthy;
     expect(spells[1]).toBeFalsy;
+    await request(server).delete('/spells/1');
+    spells = await db('spells');
+    expect(spells[0]).toBeFalsy;
+    expect(spells[1]).toBeFalsy;
   });
   it('responds with the deleted spell', async () => {
     let spells = await db('spells');
