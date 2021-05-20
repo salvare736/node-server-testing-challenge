@@ -28,3 +28,19 @@ describe('[GET] /spells', () => {
     expect(res.body).toMatchObject(listOfSpells);
   });
 });
+
+describe('[DELETE] /spells/:id', () => {
+  beforeEach(async () => {
+    await db('spells').insert(listOfSpells);
+  });
+  it('removes the spell from db', async () => {
+    let spells = await db('spells');
+    expect(spells[0]).toBeTruthy;
+    expect(spells[1]).toBeTruthy;
+    const res = await request(server).delete('/spells/2');
+    expect(res.body).toMatchObject({ id: 2, name: 'magic missile' });
+    spells = await db('spells');
+    expect(spells[0]).toBeTruthy;
+    expect(spells[1]).toBeFalsy;
+  });
+})

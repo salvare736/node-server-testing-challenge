@@ -17,8 +17,7 @@ function getById(id) {
 }
 
 async function insert(spell) {
-  const [id] = await db('spells')
-    .insert(spell, ['id', 'name']);
+  const [id] = await db('spells').insert(spell);
   return db('spells').where('id', id).first();
 }
 
@@ -26,6 +25,8 @@ async function update(id, changes) {
   return null;
 }
 
-function remove(id) {
-  return null;
+async function remove(id) {
+  const spell = await db('spells').where('id', id).first();
+  db('spells').where(id).del();
+  return spell;
 }

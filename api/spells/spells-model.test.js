@@ -53,4 +53,10 @@ describe('Spells', () => {
       expect(spell).toMatchObject({ id: 1, name: "cone of cold" })
     })
   })
+
+  describe('remove()', () => {
+    it('removes spell from db', async () => {
+      
+    })
+  })
 });

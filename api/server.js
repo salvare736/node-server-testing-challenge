@@ -23,8 +23,15 @@ server.post("/spells", (req, res) => {
   res.end();
 });
 
-server.delete("/spells/:id", (req, res) => {
-  res.end();
+server.delete("/spells/:id", (req, res, next) => {
+  const id = req.params.id;
+  Spells.remove(id)
+    .then(deletedSpell => {
+      res.status(200).json(deletedSpell);
+    })
+    .catch(err => {
+      next(err);
+    });
 });
 
 server.use((err, req, res, next) => { // eslint-disable-line
