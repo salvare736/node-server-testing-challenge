@@ -19,19 +19,25 @@ server.get("/spells", (req, res, next) => {
     });
 });
 
-server.post("/spells", (req, res) => {
-  res.end();
-});
-
-server.delete("/spells/:id", (req, res, next) => {
-  const id = req.params.id;
-  Spells.remove(id)
-    .then(deletedSpell => {
-      res.status(200).json(deletedSpell);
+server.post("/spells", (req, res, next) => {
+  const spell = req.body;
+  Spells.insert(spell)
+    .then(newSpell => {
+      res.status(200).json(newSpell);
     })
     .catch(err => {
       next(err);
     });
+});
+
+server.delete("/spells/:id", async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const delSpell = await Spells.remove(id);
+    res.status(200).json(delSpell);
+  } catch (err) {
+    next(err);
+  }
 });
 
 server.use((err, req, res, next) => { // eslint-disable-line
